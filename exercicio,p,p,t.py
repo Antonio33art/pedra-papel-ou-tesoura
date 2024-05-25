@@ -1,4 +1,4 @@
-class ex.p,p,t:
+class Jogo:
     def __init__(self):
         self.opcoes = ['pedra', 'papel', 'tesoura']
 
@@ -13,5 +13,17 @@ class ex.p,p,t:
         else:
             return "Jogador 2 ganha!"
 
-jogo = Jogo()
-print(jogo.jogar('pedra', 'tesoura'))  # Jogador 1 ganha!
+def main():
+    jogo = Jogo()
+    while True:
+        print("Bem-vindo ao jogo de Pedra, Papel e Tesoura!")
+        jogador1 = input("Jogador 1, faça sua escolha (pedra, papel, tesoura): ")
+        jogador2 = input("Jogador 2, faça sua escolha (pedra, papel, tesoura): ")
+        resultado = jogo.jogar(jogador1.lower(), jogador2.lower())
+        print(resultado)
+        jogar_novamente = input("Deseja jogar novamente? (s/n): ")
+        if jogar_novamente.lower() != 's':
+            break
+
+if __name__ == "__main__":
+    main()
