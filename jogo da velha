@@ -1,0 +1,68 @@
+class JogoDaVelha:
+    def __init__(self):
+        self.tabuleiro = [' ' for _ in range(9)]  
+        self.vencedor = None  
+
+    def imprimir_tabuleiro(self):
+        for i in range(3):
+            print("|", self.tabuleiro[i*3], "|", self.tabuleiro[i*3 + 1], "|", self.tabuleiro[i*3 + 2], "|")
+        print()
+
+    def jogada_valida(self, posicao):
+        return self.tabuleiro[posicao] == ' '
+
+    def vitoria(self, jogador):
+        vitoria_condicoes = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6]
+        ]
+        for condicao in vitoria_condicoes:
+            if self.tabuleiro[condicao[0]] == self.tabuleiro[condicao[1]] == self.tabuleiro[condicao[2]] == jogador:
+                self.vencedor = jogador
+                return True
+        return False
+
+    def empate(self):
+        return ' ' not in self.tabuleiro
+
+    def jogar(self, jogador, posicao):
+        if self.jogada_valida(posicao):
+            self.tabuleiro[posicao] = jogador
+            if self.vitoria(jogador):
+                return f'{jogador} venceu!'
+            elif self.empate():
+                return 'Empate!'
+        return ''
+
+def main():
+    jogo = JogoDaVelha()
+    jogadores = ['X', 'O']
+
+    while True:
+        for jogador in jogadores:
+            jogo.imprimir_tabuleiro()
+            posicao_valida = False
+            while not posicao_valida:
+                posicao = input(f'Jogador {jogador}, escolha uma posição de 0 a 8: ')
+                if posicao.isdigit() and int(posicao) in range(9):
+                    posicao = int(posicao)
+                    if jogo.jogada_valida(posicao):
+                        posicao_valida = True
+                    else:
+                        print('Posição inválida. Tente novamente.')
+                else:
+                    print('Entrada inválida. Tente novamente.')
+            resultado = jogo.jogar(jogador, posicao)
+            if resultado:
+                jogo.imprimir_tabuleiro()
+                print(resultado)
+                return
+
+if __name__ == "__main__":
+    main()
