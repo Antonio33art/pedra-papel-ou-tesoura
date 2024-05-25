@@ -1,1 +1,1 @@
-# pedra-papel-ou-tesoura/jogo da velha/ poor
+# pedra-papel-ou-tesoura/jogo da velha/ poo
